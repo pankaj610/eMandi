@@ -1,0 +1,19 @@
+{% extends 'farmer/base.html' %}
+
+{%  block table_block %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in add_crop %}
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <span class="text-danger col-sm-2">{{field.errors}}</span>
+      </div>
+      <label class="control-label col-sm-2">{{field.label_tag}}</label>
+      <div class="col-sm-10">{{field}}</div>
+    </div>
+    {% endfor %}
+    
+    <input class="btn btn-success" type=submit value="Add Crop" />
+  </form>
+{% endblock %}

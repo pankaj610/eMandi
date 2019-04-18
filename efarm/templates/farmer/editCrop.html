@@ -1,0 +1,24 @@
+{% extends 'index/base.html' %}
+
+{%  block content %}
+
+<div class="container" style="margin:100px auto 100px;">
+    <div class="row" style="margin-top: 6%">
+        <h1>Edit Crop Details</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <span class="text-danger col-sm-2">{{field.errors}}</span>
+              </div>
+              <label class="form-label col-sm-2">{{field.label_tag}}</label>
+              <div class="col-sm-10">{{field}}</div>
+            </div>
+            {% endfor %}
+            <input type=submit value="submit" />
+          </form>
+    </div>
+</div>
+
+{% endblock %}

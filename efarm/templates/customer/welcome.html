@@ -1,0 +1,79 @@
+{% extends 'index/base.html' %}
+
+{% load static %}
+{%  block content %}
+<div class="container-fluid">
+      <div class="row" style="margin-top: 6%">
+        <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <div class="row">
+                {% for crop in crops %}
+                    <div class="col-md-4">
+                      <div class="thumbnail" >
+                          <a href="{{ crop.get_absolute_url }}">
+                              <img src="{{ crop.crop_image.url }}"  alt="..." style="height:130px; width: auto; margin-top:10px; ">
+                          </a>
+
+                          <div class="caption">
+                              <h3 class="text-center">
+                                <a class="text-center" href="{{ crop.get_absolute_url }}">{{crop.crop_name}}</a>
+                              </h3>
+
+                              <p class="text-center">{{ crop.price }} Rs/Kg  || {{crop.quantity}}Kg Available </p>
+                              <p class="text-center"></p>
+                              <span class="teaser">{{ crop.crop_description|stringformat:".40s"}} ...</span>
+                          </div> 
+
+                      </div>
+                    </div>
+                {% endfor %}
+            </div>
+           </div><!-- /.blog-post -->
+          </div><!-- /.blog-main -->
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                <h4>User</h4>
+                <div class="sidebar-module">
+                    <ol class="list-unstyled">
+                        <li >
+                            <a href="{% url 'efarm:logout' %}">Logout</a>
+                        </li>
+                    </ol>
+                  </div>
+                <h4>Cart</h4>
+                <div class="sidebar-module">
+                    <ol class="list-unstyled">
+                        <li>
+                          <a href="{% url 'cart:cart_detail' %}">My Cart</a>
+                        </li>
+                        <li >
+                            Total Price :{{ cart.get_total_price }}
+                        </li>
+                          <li>
+                            Total Item:{{ cart.get_total_item }}
+                          </li>
+                    </ol>
+                     
+                </div>
+                
+                  <div class="sidebar-module">
+                    <h4>Categories</h4>
+                   
+                    <ol class="list-unstyled">
+                        <li {% if not category %} class="active"{% endif %}><a href="{% url 'efarm:crop_list' %}">All</a></li>
+                      {% for c in categories %}
+                        <li {% if category.slug == c.slug %} class="active"{% endif %}>
+                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                        </li>
+                      {% endfor %}
+                      </ol>
+                      
+                        
+                  </div>  
+            </div><!-- /.blog-sidebar -->
+    </div><!-- /.container -->
+
+</div><!-- /.container -->
+
+
+{% endblock %}
